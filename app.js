@@ -8,11 +8,17 @@ const darkSkyToken = 'fee3e6e79b9a143d6a7f3a639e14c4a1'
 const darkSkyURL = `https://api.darksky.net/forecast/${darkSkyToken}/${latitude},${longitude}?units=${units}`
 
 
-// request({ url: darkSkyURL, json: true }, (error, response) => {
-//   const data = response.body
+request({ url: darkSkyURL, json: true }, (error, response) => {
 
-//   console.log(`${data.daily.summary} It is currently ${data.currently.temperature} degrees out. There is a ${data.currently.precipProbability*100}% chance of rain.`)
-// })
+  if (error) {
+    console.log('Unable to connect to services!')
+  } else if (response.body.error) {
+    console.log('Unable to find location!')
+  } else {
+    const data = response.body
+    console.log(`${data.daily.summary} It is currently ${data.currently.temperature} degrees out. There is a ${data.currently.precipProbability*100}% chance of rain.`)
+  }
+})
 
 const geoCodeToken = 'pk.eyJ1IjoidHJvbmdoaWV1IiwiYSI6ImNqd3hicWk5djBpNmYzeWp6ZXp1c3N3NHcifQ.kr1qW_AQ3AwdgPPFHqjI5Q'
 const address = 'Los%20Angeles'
