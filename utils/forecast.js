@@ -5,19 +5,16 @@ const forecast = (latitude, longitude, callback) => {
   const units = 'si'
   const url = `https://api.darksky.net/forecast/${accessToken}/${latitude},${longitude}?units=${units}`
 
-  request({
-    url: url,
-    json: true
-  }, (error, response) => {
+  request({ url, json: true }, (error, { body }) => {
     if (error) {
       callback('Unable to connect to location services!')
-    } else if (response.body.error) {
+    } else if (body.error) {
       callback('Unable to find location!')
     } else {
       callback(undefined, {
-        temperature: response.body.currently.temperature,
-        rainPercent: response.body.currently.precipProbability * 100,
-        summary: response.body.daily.summary
+        temperature: body.currently.temperature,
+        rainPercent: body.currently.precipProbability * 100,
+        summary: body.daily.summary
       })
     }
   })
