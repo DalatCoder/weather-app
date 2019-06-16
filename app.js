@@ -3,8 +3,8 @@ const forecast = require('./utils/forecast')
 
 const address = process.argv[2]
 
-if (address === '' || address === undefined) {
-  return console.log('Please enter location!')
+if (!address) {
+  return console.log('Please provide an address!')
 }
 
 geoCode(address, (error, geocode) => {
