@@ -7,17 +7,17 @@ if (!address) {
   return console.log('Please provide an address!')
 }
 
-geoCode(address, (error, geocode) => {
+geoCode(address, (error, {longitude, latitude, location}) => {
   if (error) {
     return console.log(error)
   }
 
-  forecast(geocode.latitude, geocode.longitude, (error, data) => {
+  forecast(latitude, longitude, (error, {temperature, rainPercent, summary}) => {
     if (error) {
       return console.log(error)
     }
 
-    console.log(geocode.location)
-    console.log(`${data.summary} It's ${data.temperature} degrees out. There is ${data.rainPercent}% chance of rain.`)
+    console.log(location)
+    console.log(`${summary} It's ${temperature} degrees out. There is ${rainPercent}% chance of rain.`)
   })
 })
